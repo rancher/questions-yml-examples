@@ -3,7 +3,7 @@
 You can configure the following in questions.yaml:
 
 | Question Type | Description |
-|===============|=============|
+|----|----|
 | `boolean` | Yields a checkbox component. |
 | `string` | Yields a labeled input component for strings. |
 | `enum` | Yields a dropdown menu where the items are the values in the enum. |
