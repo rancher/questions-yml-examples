@@ -3,17 +3,17 @@ apiVersion: v1
 metadata:
   name: example-configmap 
 data:
-  testFloat: 1.11
-  nameOfAnotherConfigMap: null
-  nameOfSecret: null
-  nameOfStorageClass: null
-  nameOfIngressClass: null
+  testFloat: {{- include ".Values.configMap.testFloat" }}
+  nameOfAnotherConfigMap: {{- include ".Values.configMap.nameOfAnotherConfigMap" }}
+  nameOfSecret: {{- include ".Values.configMap.nameOfSecret" }}
+  nameOfStorageClass: {{- include ".Values.configMap.nameOfStorageClass" }}
+  nameOfIngressClass: {{- include ".Values.configMap.nameOfIngressClass" }}
   listOfStrings:
-    - string1
-    - string2
-  yamlFile: null
-  tmplFile: null
-  cloudCredential: null
+    {{- include ".Values.configMap.listOfStrings" . | nindent 4 }}
+  yamlFile:
+    {{- include ".Values.configMap.yamlFile" . | nindent 4 }}
+  tmplFile: {{- include ".Values.configMap.tmplFile" }}
+  cloudCredential: {{- include ".Values.configMap.cloudCredential" }}
   docker:
-    enabled: false
-    path: ''
+    enabled: {{- include ".Values.configMap.docker.enabled" }}
+    path: {{- include ".Values.configMap.docker.path" }}
