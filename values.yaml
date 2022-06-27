@@ -11,14 +11,16 @@ deployment:
   nodeSelectors:
     key1: value1
     key2: value2
-  affinity:
+  affinity: # Example taken from https://github.com/rancher/charts/blob/a1a71551fb362839168805d1e23241ace30d5f0e/charts/rancher-monitoring/100.1.3%2Bup19.0.3/values.yaml#L1107
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-          - matchExpressions:
-              key:      'test',
-              operator: 'In',
-              values:   ['test']
+        - matchExpressions:
+          - key: kubernetes.io/e2e-az-name
+            operator: In
+            values:
+            - e2e-az1
+            - e2e-az2
   tolerations: []
 configMap:
   testFloat: 1.11
