@@ -29,8 +29,84 @@ configMap:
   listOfStrings:
     - string1
     - string2
-  yamlFile: null
-  tmplFile: null
+  yamlFile: # Example taken from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml#L579
+    paths:
+      data: /var/lib/grafana/
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
+    analytics:
+      check_for_updates: true
+    log:
+      mode: console
+    grafana_net:
+      url: https://grafana.net
+  tmplFile: |- # Example taken from https://github.com/rancher/charts/blob/a1a71551fb362839168805d1e23241ace30d5f0e/charts/rancher-monitoring/100.1.3%2Bup19.0.3/values.yaml#L712
+        {{- define "slack.rancher.text" -}}
+        {{ template "rancher.text_multiple" . }}
+        {{- end -}}
+        {{- define "rancher.text_multiple" -}}
+        *[GROUP - Details]*
+        One or more alarms in this group have triggered a notification.
+        {{- if gt (len .GroupLabels.Values) 0 }}
+        *Group Labels:*
+          {{- range .GroupLabels.SortedPairs }}
+          • *{{ .Name }}:* `{{ .Value }}`
+          {{- end }}
+        {{- end }}
+        {{- if .ExternalURL }}
+        *Link to AlertManager:* {{ .ExternalURL }}
+        {{- end }}
+        {{- range .Alerts }}
+        {{ template "rancher.text_single" . }}
+        {{- end }}
+        {{- end -}}
+        {{- define "rancher.text_single" -}}
+        {{- if .Labels.alertname }}
+        *[ALERT - {{ .Labels.alertname }}]*
+        {{- else }}
+        *[ALERT]*
+        {{- end }}
+        {{- if .Labels.severity }}
+        *Severity:* `{{ .Labels.severity }}`
+        {{- end }}
+        {{- if .Labels.cluster }}
+        *Cluster:*  {{ .Labels.cluster }}
+        {{- end }}
+        {{- if .Annotations.summary }}
+        *Summary:* {{ .Annotations.summary }}
+        {{- end }}
+        {{- if .Annotations.message }}
+        *Message:* {{ .Annotations.message }}
+        {{- end }}
+        {{- if .Annotations.description }}
+        *Description:* {{ .Annotations.description }}
+        {{- end }}
+        {{- if .Annotations.runbook_url }}
+        *Runbook URL:* <{{ .Annotations.runbook_url }}|:spiral_note_pad:>
+        {{- end }}
+        {{- with .Labels }}
+        {{- with .Remove (stringSlice "alertname" "severity" "cluster") }}
+        {{- if gt (len .) 0 }}
+        *Additional Labels:*
+          {{- range .SortedPairs }}
+          • *{{ .Name }}:* `{{ .Value }}`
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- with .Annotations }}
+        {{- with .Remove (stringSlice "summary" "message" "description" "runbook_url") }}
+        {{- if gt (len .) 0 }}
+        *Additional Annotations:*
+          {{- range .SortedPairs }}
+          • *{{ .Name }}:* `{{ .Value }}`
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end -}}
+
   cloudCredential: null
   docker:
     enabled: false
