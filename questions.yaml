@@ -1,0 +1,114 @@
+questions:
+# Questions for tab named "Some Example ConfigMap Values"
+- variable: configMap.docker.enabled
+  default: true
+  description:  Example description of a boolean input
+  type: boolean
+  label: Example Boolean - Enable Docker Runtime
+  show_subquestion_if: true
+  group: "Some Example ConfigMap Values"
+  subquestions:
+  - variable: configMap.docker.path
+    default: "/var/run/docker.sock"
+    description: "Example of a conditionally rendered input. Docker Runtime Path"
+    type: string
+    label: Runtime Path
+- variable: configMap.testFloat
+  default: 1.11
+  description: Description of the float input
+  type: float
+  label: Float Label
+  group: "Some Example ConfigMap Values"
+- variable: configMap.nameOfAnotherConfigMap
+  description: Reference a ConfigMap by name.
+  type: reference_configmap
+  label: Reference a ConfigMap
+  group: "Some Example ConfigMap Values"
+- variable: configMap.nameOfSecret
+  description: Reference a Secret by name
+  type: reference_secret
+  label: Reference a Secret
+  group: "Some Example ConfigMap Values"
+- variable: configMap.nameOfStorageClass
+  description: StorageClass to be used
+  type: reference_storage.k8s.io.storageclass
+  label: Storage Class
+  group: "Some Example ConfigMap Values"
+- variable: configMap.nameOfIngressClass
+  description: Reference an IngressClass by name (can also reference any arbitrary resource)
+  type: reference_networking.k8s.io.ingressclass
+  label: Reference an IngressClass
+  group: "Some Example ConfigMap Values"
+- variable: configMap.listOfStrings
+  description: List of strings
+  type: listofstrings
+  label: List of Strings
+  group: "Some Example ConfigMap Values"
+- variable: configMap.yamlFile
+  description: YAML input
+  type: yamlfile
+  label: Upload YAML File
+  group: "Some Example ConfigMap Values"
+- variable: configMap.tmplFile
+  description: TMPL input
+  type: tmplfile
+  label: Upload TMPL File
+  group: "Some Example ConfigMap Values"
+- variable: configMap.cloudCredential
+  description: Select a cloud credential
+  type: cloudcredential
+  label: Cloud Credential
+  group: "Some Example ConfigMap values"
+
+# Questions for tab named "Some Example Deployment Values"
+- variable: deployment.name
+  default: "Default name"
+  description: Example description of a string input
+  type: string
+  label: Deployment Name
+  group: "Some Example Deployment Values"
+- variable: deployment.replicaCount
+  default: 1
+  description: Replicas
+  type: integer
+  label: Replicas
+  group: "Some Example Deployment Values"
+- variable: deployment.labels
+  description: Add labels here. This is a key-value pair component with a button that allows uploading values from files.
+  type: labels
+  label: Labels
+  group: "Some Example Deployment Values"
+- variable: deployment.annotations
+  description: Add annotations here. This component is the same as the component for labels, except that the value input is a multiline code editor that will visually preserve the spacing when uploading values from files.
+  type: annotations
+  label: Annotations
+  group: "Some Example Deployment Values"
+- variable: deployment.imagePullPolicy
+  default: "Always"
+  description: Set a pull policy for the container image
+  type: enum
+  label: Image Pull Policy
+  group: "Some Example Deployment Values"
+  options:
+    - "Always"
+    - "IfNotPresent"
+    - "Never"
+- variable: deployment.nodeSelectors
+  description: Add node affinity details here
+  type: nodeselectors
+  label: Node Selectors
+  group: "Some Example Deployment Values"
+- variable: deployment.tolerations
+  description: Add tolerations here
+  type: tolerations
+  label: Tolerations
+  group: "Some Example Deployment Values"
+- variable: deployment.affinity
+  description: Add node affinity rules here
+  type: affinityrules
+  label: Node Affinity
+  group: "Some Example Deployment Values"
+
+
+
+

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: questionsYamlExamples
+  labels:
+    {{- include ".Values.deployment.labels" . | nindent 4 }}
+  annotations:
+    {{- include ".Values.deployment.annotations" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  template:
+    spec:
+      containers:
+        - name: {{ include ".Values.deployment.name" . }}
+          image: ngnix:latest
+          imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+      {{- with .Values.deployment.nodeSelectors }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.deployment.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.deployment.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
