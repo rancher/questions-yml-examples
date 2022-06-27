@@ -90,9 +90,9 @@ questions:
   label: Image Pull Policy
   group: "Some Example Deployment Values"
   options:
-    - "Always"
-    - "IfNotPresent"
-    - "Never"
+  - "Always"
+  - "IfNotPresent"
+  - "Never"
 - variable: deployment.nodeSelectors
   description: Add node affinity details here
   type: nodeselectors
