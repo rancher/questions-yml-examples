@@ -21,7 +21,11 @@ deployment:
             values:
             - e2e-az1
             - e2e-az2
-  tolerations: []
+  tolerations: # Example taken from https://github.com/rancher/charts/blob/a1a71551fb362839168805d1e23241ace30d5f0e/charts/rancher-monitoring/100.1.3%2Bup19.0.3/values.yaml#L1121
+  - key: "key"
+    operator: "Equal"
+    value: "value"
+    effect: "NoSchedule"
 configMap:
   testFloat: 1.11
   nameOfAnotherConfigMap: null
@@ -108,7 +112,6 @@ configMap:
         {{- end }}
         {{- end }}
         {{- end -}}
-
   cloudCredential: null
   docker:
     enabled: false
