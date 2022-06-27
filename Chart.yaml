@@ -2,5 +2,5 @@ apiVersion: v2
 name: "Questions.yaml Examples"
 description: An example Helm chart to demonstrate how values can be configured with questions.yaml
 type: application
-version: 1
-appVersion: 1
+version: "1"
+appVersion: "1"
